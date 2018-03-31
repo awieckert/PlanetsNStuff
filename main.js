@@ -1,7 +1,7 @@
 console.log("YAY!");
 
 const printToDom = (domString, divId) => {
-    document.getElementById(divId).innerHTML = domString;
+    document.getElementById(divId).innerHTML += domString;
 };
 
 let planetBios;
@@ -25,16 +25,33 @@ const hideStuff = () => {
     }
 }
 
+const closeWithX = () => {
+    allMyHidden = document.getElementsByClassName('hidden');
+    console.log("Allmyhidden: ", allMyHidden);
+    // for(let i = 0; i < allMyHidden.length; i++){
+    //     allMyHidden[i].classList.remove('hidden');
+    //     console.log(i);
+    // }
+    while (allMyHidden.length > 0) { 
+        allMyHidden[0].classList.remove("hidden"); 
+    };
+    removeBigCard = document.getElementById('the-big-card');
+    removeBigCard.remove();
+}
+
+const addEventToX = () => {
+    eventToX = document.getElementById('exit');
+    eventToX.addEventListener("click", closeWithX);
+}
+
 const planetBioBuilder = (e, bios) => {
     let stringToPrint = "";
-    let targetParentNode = e.target.parentNode;
     let targetID = e.target.parentNode.id;
     console.log("Target ID: ", targetID);
     bios.forEach((item, index) => {
         if(targetID == index){
-            targetParentNode.classList.remove('planet-card');
-            targetParentNode.classList.add("big-card");
-            stringToPrint += `<button class="exit">X</button>`;
+            stringToPrint += `<div id="the-big-card" class="big-card">`;
+            stringToPrint += `<button id="exit" class="exit">X</button>`;
             stringToPrint += `<h2 id="big-h2">${item.name}</h2>`;
             stringToPrint += `<img id="big-image" src="${item.imageUrl}">`;
             if(item.isGasPlanet){
@@ -44,10 +61,12 @@ const planetBioBuilder = (e, bios) => {
             }
             stringToPrint += `<h4>Number of Moons: ${item.numberOfMoons}</h4>`;
             stringToPrint += `<p>${item.description}</p>`;
+            stringToPrint += `</div>`;
         }
     })
     hideStuff();
-    printToDom(stringToPrint, `${targetID}`);
+    printToDom(stringToPrint, "planets-container");
+    addEventToX();
 }
 
 const addCardEvents = () => {
