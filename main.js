@@ -37,6 +37,7 @@ const closeWithX = () => {
     };
     removeBigCard = document.getElementById('the-big-card');
     removeBigCard.remove();
+    addCardEvents();
 }
 
 const addEventToX = () => {
@@ -99,9 +100,27 @@ const startApplication = () => {
     myRequest.addEventListener("error", WTF);
     myRequest.open("GET", "planets.json");
     myRequest.send();
+    addSearchEvent();
 }
 
+const searchStuff = (e) => {
+    let searchBar = document.getElementById('search');
+    let textInput = searchBar.value.toLowerCase();
+    let planetCards = document.getElementsByClassName('planet-card');
+    for(let i = 0; i < planetCards.length; i++){
+        if(planetCards[i].innerText.toLowerCase().indexOf(textInput) > - 1){
+            planetCards[i].style.display = "";
+        } else {
+            planetCards[i].style.display = "none";
+        }
+    }
+    
+}
 
+const addSearchEvent = () => {
+    let eventToSearch = document.getElementById('search');
+    eventToSearch.addEventListener("keyup", searchStuff)
+}
 
 
 
