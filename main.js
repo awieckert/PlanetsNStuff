@@ -27,11 +27,6 @@ const hideStuff = () => {
 
 const closeWithX = () => {
     allMyHidden = document.getElementsByClassName('hidden');
-    console.log("Allmyhidden: ", allMyHidden);
-    // for(let i = 0; i < allMyHidden.length; i++){
-    //     allMyHidden[i].classList.remove('hidden');
-    //     console.log(i);
-    // }
     while (allMyHidden.length > 0) { 
         allMyHidden[0].classList.remove("hidden"); 
     };
@@ -53,7 +48,7 @@ const planetBioBuilder = (e, bios) => {
         if(targetID == index){
             stringToPrint += `<div id="the-big-card" class="big-card">`;
             stringToPrint += `<button id="exit" class="exit">X</button>`;
-            stringToPrint += `<h2 id="big-h2">${item.name}</h2>`;
+            stringToPrint += `<h1 id="big-h1">${item.name}</h1>`;
             stringToPrint += `<img id="big-image" src="${item.imageUrl}">`;
             if(item.isGasPlanet){
                 stringToPrint += `<h4>This is a Gaseous Planet...gross!</h4>`;
@@ -72,7 +67,7 @@ const planetBioBuilder = (e, bios) => {
 
 const addCardEvents = () => {
     const allPlanetCards = document.getElementsByClassName('planet-card');
-    console.log("my planets: ", allPlanetCards);
+    console.log("In addCardEvents");
     for(let i = 0; i < allPlanetCards.length; i++){
         allPlanetCards[i].addEventListener('click', (e) => {
             planetBioBuilder(e, planetBios);
